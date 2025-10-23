@@ -2,7 +2,7 @@ import      os
 import      sys
 from smbus2 import SMBus
 import      time
-import      lgpio
+#import      lgpio
 import      select
 
 # i2c slave address of TCA9535
@@ -106,7 +106,7 @@ with SMBus(1) as bus:  # I2c-1 bus of Raspberry Pi
     bus.write_byte_data(I2C_ADDRESS, PORT0_OUTPUT, 0)
     bus.write_byte_data(I2C_ADDRESS, PORT1_OUTPUT, 0)
 
-    chip = lgpio.gpiochip_open(4)
+#    chip = lgpio.gpiochip_open(4)
 
     val = 0
     bus.write_byte_data(I2C_ADDRESS, PORT1_OUTPUT, val)

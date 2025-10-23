@@ -175,29 +175,28 @@ with SMBus(1) as bus:  # I2c-1 bus of Raspberry Pi
     val = 0
     bus.write_byte_data(I2C_ADDRESS, PORT1_OUTPUT, val)
 
-    while True:
-        print("# press sw to turn on")
-        while (bus.read_byte_data(I2C_ADDRESS, PORT0_INPUT) & SWJIG_SW):
+#    while True:
+#        print("# press sw to turn on")
+#        while (bus.read_byte_data(I2C_ADDRESS, PORT0_INPUT) & SWJIG_SW):
+#            time.sleep(0.01)
+#        while (~bus.read_byte_data(I2C_ADDRESS, PORT0_INPUT) & SWJIG_SW):
+#            time.sleep(0.01)
+
+    ClearConsole()
+    print("# turn on [", end="")
+    sys.stdout.flush()
+    TurnOnIo()
+
+    print("# check gpio")
+    ToggleGpio(bus)
+    print("")
+
+    print("# press sw to turn off")
+    while  (bus.read_byte_data(I2C_ADDRESS, PORT0_INPUT) & SWJIG_SW):
             time.sleep(0.01)
-        while (~bus.read_byte_data(I2C_ADDRESS, PORT0_INPUT) & SWJIG_SW):
+    while (~bus.read_byte_data(I2C_ADDRESS, PORT0_INPUT) & SWJIG_SW):
             time.sleep(0.01)
 
-        ClearConsole()
-        print("# turn on [", end="")
-        sys.stdout.flush()
-        TurnOnIo()
-
-        print("# check gpio")
-        ToggleGpio(bus)
-        print("")
-  
-        print("# press sw to turn off")
-        while  (bus.read_byte_data(I2C_ADDRESS, PORT0_INPUT) & SWJIG_SW):
-            time.sleep(0.01)
-        while (~bus.read_byte_data(I2C_ADDRESS, PORT0_INPUT) & SWJIG_SW):
-            time.sleep(0.01)
-
-        print("# turn off [", end="")
-        sys.stdout.flush()
-        TurnOffIo()
-
+    print("# turn off [", end="")
+    sys.stdout.flush()
+    TurnOffIo()
